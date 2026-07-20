@@ -1,0 +1,7 @@
+WARNING: This mod is a HORROR mod. It contains flashing lights. Do not play this if you are faint-hearted or have epilepsy. This mod is still in beta, expect bugs or glitches.
+This mod also can modify your settings (only volume) and can close or crash the game. 
+Will you survive and come face-to-face with apathy, or will you give up?
+This mod adds: Horror events, 2 bosses, 1 item. Not recommended for multiplayer.
+Inspired by https://github.com/EyeOfDarkness/FlameOut 
+Music by [url=https://steamcommunity.com/profiles/76561199467448605/]mona[/url]
+have fun!

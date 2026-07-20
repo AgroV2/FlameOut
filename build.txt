@@ -1,0 +1,4 @@
+displayName = Flame Out
+author = AgroV2
+version = 0.1
+modReferences = BossChecklist,SubworldLibrary

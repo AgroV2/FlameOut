@@ -1,0 +1,60 @@
+Projectiles: {
+	ApathyStaticBeam.DisplayName: Apathy Static Beam
+	ApathySpinLaser.DisplayName: Apathy Spin Laser
+	ApathyParticle.DisplayName: Apathy Particle
+	ApathyBigLaser.DisplayName: Apathy Big Laser
+	ApathyDeathEffect.DisplayName: Apathy Death Effect
+	EmpathyLaser.DisplayName: Empathy Laser
+	EmpathyPentagram.DisplayName: Empathy Pentagram
+	EmpathyPentagramLaser.DisplayName: Empathy Pentagram Laser
+	EmpathySword.DisplayName: Empathy Sword
+	Empathy_Projectiles.DisplayName: Empathy Projectile
+	EmpathyStar.DisplayName: Empathy Star
+	EmpathyScythe.DisplayName: Empathy Scythe
+	EmpathyScytheShot.DisplayName: Empathy Scythe Shot
+	EmpathyParticle2.DisplayName: Empathy Particle
+	EmpathyParticle3.DisplayName: Empathy Particle
+	EmpathyPortal1.DisplayName: Empathy Portal
+	EmpathyPortal2.DisplayName: Empathy Portal
+	EmpathyPortal.DisplayName: Empathy Portal
+	GuardianBullet.DisplayName: Guardian Bullet
+	GuardianArrow.DisplayName: Guardian Arrow
+	EmpathyLaser2.DisplayName: Empathy Laser
+	EmpathySquare.DisplayName: Empathy Square
+	EmpathyDirLaser.DisplayName: Empathy Dir Laser
+	EmpathyOrb.DisplayName: Empathy Orb
+	EmpathyCross.DisplayName: Empathy Cross
+	EmpathyScytheP13.DisplayName: Empathy Scythe
+	EmpathySword2.DisplayName: Empathy Sword
+	EmpathyLaser3.DisplayName: Empathy Laser
+	EmpathyPortal3.DisplayName: Empathy Portal
+	EmpathyScreenFlash.DisplayName: Empathy Screen Flash
+	EmpathyBarrier.DisplayName: Empathy Barrier
+	HorrorGhostProj.DisplayName: Horror Ghost Proj
+	EmpathyPulseCircle.DisplayName: Empathy Pulse Circle
+	EmpathySwordHeld.DisplayName: Empathy Sword Held
+	EmpathySoulExplosion.DisplayName: Empathy Soul Explosion
+	GuardianBowHeld.DisplayName: Guardian Bow Held
+	EmpathyStaffHeld.DisplayName: Empathy Staff Held
+	EmpathyWhipProj.DisplayName: Empathy Whip Proj
+}
+
+NPCs: {
+	ApathyBoss.DisplayName: Apathy
+	Empathy.DisplayName: Empathy
+	Guardian2.DisplayName: Guardian
+	Guardian1.DisplayName: Guardian
+	PlayerMirror.DisplayName: yourself
+}
+
+Items: {
+	KeyOfNowhere: {
+		Tooltip: you shouldn't have seen this
+		DisplayName: Key Of Nowhere
+	}
+
+	EmpathySoul: {
+		Tooltip: ""
+		DisplayName: Empathy Soul
+	}
+}
