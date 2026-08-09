@@ -10,7 +10,6 @@ namespace flameout.Content
 {
     if (!ModLoader.TryGetMod("FargowiltasSouls", out Mod fargoSouls))
     {
-        Mod.Logger.Info("FargoCompat: FargowiltasSouls not loaded");
         return;
     }
 
@@ -18,7 +17,6 @@ namespace flameout.Content
     if (!fargoSouls.TryFind<ModItem>("EternitySoul", out ModItem soulOfEternity)
         && !fargoSouls.TryFind<ModItem>("SoulOfEternity", out soulOfEternity))
     {
-        Mod.Logger.Warn("FargoCompat: Soul of Eternity item not found");
         return;
     }
 
@@ -28,12 +26,11 @@ namespace flameout.Content
         Recipe recipe = Main.recipe[i];
         if (recipe.createItem.type == soulOfEternity.Type)
         {
-            recipe.AddIngredient(ModContent.ItemType<EmpathySoul>());
+            recipe.AddIngredient(ModContent.ItemType<SoulOfStability>());
             added++;
         }
     }
 
-    Mod.Logger.Info($"FargoCompat: Empathy Soul added to {added} recipe(s)");
 }
     }
 }

@@ -1,3 +1,5 @@
+
+
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -11,29 +13,31 @@ namespace flameout.Content
 {
     public class HorrorSubworld : Subworld
     {
-        public override int Width => 150;
-        public override int Height => 1000;
+        public const int SubWidth = 150;
+        public const int SubHeight = 1000;
+        public const int SpawnX = 75;
+        public const int SpawnY = 945;
+
+        public override int Width => SubWidth;
+        public override int Height => SubHeight;
         public override bool ShouldSave => false;
         public override bool NoPlayerSaving => true;
 
         public override void OnEnter()
         {
-            
-            Main.worldSurface = 0;
-            Main.rockLayer = 0;
-
-            
-            Main.spawnTileX = 75;
-            Main.spawnTileY = 945;
         }
 
-        public override void OnExit()
+        public override void OnLoad()
         {
-            
-            
-            
-            Main.worldSurface = Main.maxTilesY * 0.3;
-            Main.rockLayer = Main.maxTilesY * 0.5;
+            ApplyAbyssLayers();
+        }
+
+        internal static void ApplyAbyssLayers()
+        {
+            Main.worldSurface = 0;
+            Main.rockLayer = 0;
+            Main.spawnTileX = SpawnX;
+            Main.spawnTileY = SpawnY;
         }
 
         public override List<GenPass> Tasks => new List<GenPass>()
@@ -50,15 +54,11 @@ namespace flameout.Content
         {
             progress.Message = "Creating the Abyss...";
 
-            
-            Main.spawnTileX = 75;
-            Main.spawnTileY = 945;
-            Main.worldSurface = 0;
-            Main.rockLayer = 0;
+            HorrorSubworld.ApplyAbyssLayers();
 
-            for (int x = 0; x < 150; x++)
+            for (int x = 0; x < HorrorSubworld.SubWidth; x++)
             {
-                for (int y = 0; y < 1000; y++)
+                for (int y = 0; y < HorrorSubworld.SubHeight; y++)
                 {
                     Tile tile = Main.tile[x, y];
                     if (x < 40 || x >= 110 || y >= 950)
@@ -84,7 +84,6 @@ namespace flameout.Content
             ushort handsTile = (ushort)ModContent.TileType<HandsTile>();
             for (int y = 60; y < 940; y += 15)
             {
-                
                 for (int dx = 0; dx < 2; dx++)
                     for (int dy = 0; dy < 2; dy++)
                     {
@@ -95,7 +94,6 @@ namespace flameout.Content
                         t.TileFrameY = (short)(dy * 18);
                     }
 
-                    
                     for (int dx = 0; dx < 2; dx++)
                         for (int dy = 0; dy < 2; dy++)
                         {
@@ -112,31 +110,88 @@ namespace flameout.Content
         }
     }
 
+    public class MainWorldLayerRepair : ModSystem
+    {
+        public override void OnWorldLoad()
+        {
+            if (SubworldSystem.AnyActive())
+                return;
+
+            bool layersBroken = Main.worldSurface < 1
+            || Main.rockLayer < 1
+            || Main.rockLayer <= Main.worldSurface;
+
+            if (!layersBroken)
+                return;
+
+            double oldSurface = Main.worldSurface;
+            double oldRock = Main.rockLayer;
+
+            Main.worldSurface = Main.maxTilesY * 0.3;
+            Main.rockLayer = Main.maxTilesY * 0.5;
+
+            bool spawnRepaired = RepairSpawnIfNeeded();
+
+            Mod.Logger.Warn(
+                $"Main world layers were corrupted (worldSurface={oldSurface}, rockLayer={oldRock}). " +
+                $"Repaired to worldSurface={Main.worldSurface}, rockLayer={Main.rockLayer}" +
+                (spawnRepaired ? $"; spawn moved to {Main.spawnTileX}/{Main.spawnTileY}." : "."));
+        }
+
+        private static bool RepairSpawnIfNeeded()
+        {
+            bool looksLikeSubworldSpawn = Main.spawnTileX == HorrorSubworld.SpawnX
+            && Main.spawnTileY == HorrorSubworld.SpawnY;
+
+            bool outOfBounds = Main.spawnTileX < 10
+            || Main.spawnTileX > Main.maxTilesX - 10
+            || Main.spawnTileY < 10
+            || Main.spawnTileY > Main.maxTilesY - 10;
+
+            if (!looksLikeSubworldSpawn && !outOfBounds)
+                return false;
+
+            int x = Main.maxTilesX / 2;
+            for (int y = 10; y < Main.maxTilesY - 10; y++)
+            {
+                Tile tile = Main.tile[x, y];
+                if (tile.HasTile && Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType])
+                {
+                    Main.spawnTileX = x;
+                    Main.spawnTileY = y;
+                    return true;
+                }
+            }
+
+            Main.spawnTileX = x;
+            Main.spawnTileY = (int)Main.worldSurface;
+            return true;
+        }
+    }
+
     public class HorrorPlayer : ModPlayer
     {
         private bool _needTeleport = false;
 
         public override void OnEnterWorld()
         {
-            
             _needTeleport = true;
         }
 
         public override void PostUpdate()
         {
-            
-            if (_needTeleport && SubworldSystem.IsActive<HorrorSubworld>())
+            if (!_needTeleport)
+                return;
+
+            if (SubworldSystem.IsActive<HorrorSubworld>())
             {
-                Player.Center = new Vector2(75 * 16, 940 * 16);
+                Player.Center = new Vector2(
+                    HorrorSubworld.SpawnX * 16 + 8,
+                    (HorrorSubworld.SpawnY - 2) * 16);
                 Player.velocity = Vector2.Zero;
-                _needTeleport = false;
             }
 
-            
-            if (_needTeleport && !SubworldSystem.IsActive<HorrorSubworld>())
-            {
-                _needTeleport = false;
-            }
+            _needTeleport = false;
         }
     }
 
@@ -145,11 +200,7 @@ namespace flameout.Content
         public override SceneEffectPriority Priority => SceneEffectPriority.BossHigh;
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Music/hrrm3");
 
-        
-
-
         public override bool IsSceneEffectActive(Player player) => SubworldSystem.IsActive<HorrorSubworld>();
-
-
     }
 }
+

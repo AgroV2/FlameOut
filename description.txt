@@ -1,2 +1,2 @@
 WARNING: This mod is a HORROR mod. It contains flashing lights. Do not play this if you are faint-hearted or have epilepsy. This mod is still in beta, expect bugs or glitches.
-This mod also can modify your settings (only volume) and can close or crash the game. 
+This mod also can modify your settings (only volume) and can SaveAndQuit game.

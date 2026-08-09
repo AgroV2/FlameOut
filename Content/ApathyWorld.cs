@@ -13,16 +13,18 @@ public class ApathyWorld : ModSystem
 {
     public static bool downedApathy = false;
  public static bool downedEmpathy = false;
-
+ public static bool downedTrueEmpathy = false;
     public override void SaveWorldData(TagCompound tag)
     {
         tag["downedApathy"] = downedApathy;
         tag["downedEmpathy"] = downedApathy;
+         tag["downedTrueEmpathy"] = downedApathy;
     }
 
     public override void LoadWorldData(TagCompound tag)
     {
         downedApathy = tag.GetBool("downedApathy");
          downedApathy = tag.GetBool("downedEmpathy");
+         downedApathy = tag.GetBool("downedTrueEmpathy");
     }
 }

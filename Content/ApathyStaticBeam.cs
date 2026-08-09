@@ -1,3 +1,5 @@
+
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,6 +11,16 @@ namespace flameout.Content
     public class ApathyStaticBeam : ModProjectile
     {
         private const float BEAM_LENGTH = 2400f;
+
+        
+        
+        
+        private const int LIFETIME = 360;
+        private const int FADE_IN = 10;
+        private const int FADE_OUT = 25;
+
+        
+        private float Age { get => Projectile.localAI[0]; set => Projectile.localAI[0] = value; }
 
         public override void SetStaticDefaults()
         {
@@ -31,10 +43,10 @@ namespace flameout.Content
         public override void AI()
         {
             Projectile.velocity = Vector2.Zero;
+            Age++;
 
             Vector2 beamDir = GetDir();
 
-            
             if (Main.rand.NextBool(3))
             {
                 Vector2 dustPos = Projectile.Center + beamDir * Main.rand.NextFloat(BEAM_LENGTH);
@@ -50,8 +62,19 @@ namespace flameout.Content
             return d == Vector2.Zero ? Vector2.UnitX : d.SafeNormalize(Vector2.Zero);
         }
 
+        private float Alpha()
+        {
+            float fadeIn = MathHelper.Clamp(Age / FADE_IN, 0f, 1f);
+            float fadeOut = MathHelper.Clamp((LIFETIME - Age) / FADE_OUT, 0f, 1f);
+            return fadeIn * fadeOut;
+        }
+
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
+            
+            if (Age < FADE_IN)
+                return false;
+
             float _ = 0f;
             return Collision.CheckAABBvLineCollision(
                 targetHitbox.TopLeft(), targetHitbox.Size(),
@@ -67,31 +90,24 @@ namespace flameout.Content
             Vector2 dir = GetDir();
             Vector2 origin = Projectile.Center - Main.screenPosition;
 
-            
-            int elapsed = 600 - Projectile.timeLeft;
-            float fadeIn  = MathHelper.Clamp(elapsed / 10f, 0f, 1f);
-            float fadeOut = MathHelper.Clamp(Projectile.timeLeft / 25f, 0f, 1f);
-            float alpha   = fadeIn * fadeOut;
+            float alpha = Alpha();
+            if (alpha <= 0.01f)
+                return false;
 
-            float pulse = (float)System.Math.Sin(elapsed * 0.12f) * 0.5f + 0.5f;
+            float pulse = (float)System.Math.Sin(Age * 0.12f) * 0.5f + 0.5f;
 
-            
             DrawBeam(pixel, origin, dir, BEAM_LENGTH,
                 new Color(255, 20, 120) * 0.2f * alpha, 80f);
 
-            
             DrawBeam(pixel, origin, dir, BEAM_LENGTH,
                 Color.Lerp(new Color(255, 80, 180), new Color(255, 160, 220), pulse) * 0.45f * alpha, 38f);
 
-            
             DrawBeam(pixel, origin, dir, BEAM_LENGTH,
                 new Color(255, 200, 230) * 0.85f * alpha, 16f);
 
-            
             DrawBeam(pixel, origin, dir, BEAM_LENGTH,
                 Color.White * alpha, 5f);
 
-            
             float flareSize = (28f + pulse * 12f) * alpha;
             Main.spriteBatch.Draw(pixel, origin,
                 new Rectangle(0, 0, 1, 1),
@@ -118,3 +134,4 @@ namespace flameout.Content
         }
     }
 }
+

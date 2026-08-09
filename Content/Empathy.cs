@@ -11,6 +11,7 @@ using Terraria.DataStructures;
 using flameout.Content;
 using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
+using ReLogic.Content;
 namespace flameout.Content
 {
     [AutoloadBossHead]
@@ -81,7 +82,10 @@ public override bool CheckDead()
 {
     npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EmpathySoul>()));  
 }
-
+public override void BossLoot(ref int potionType)
+{
+    potionType = ItemID.None; 
+}
 
 private void CheckDistance(Player target)
 {
@@ -185,7 +189,6 @@ if (NPC.localAI[2] > 0f || NPC.localAI[2] <= 120f)
     Music = MusicLoader.GetMusicSlot(Mod, "flameout/Content/Music/EmpathyMusic");
 
     
-    NPC.BossBar = ModContent.GetInstance<EmpathyBossBar>();
 }
 bool anyAlive = false;
 
@@ -193,13 +196,11 @@ bool anyAlive = false;
 
 
 
- public override void OnKill()
-        {
-            ApathyWorld.downedEmpathy = true;
-            Phasee2 = false;
-            _p2?.End();   
-            _p2 = null;
-        }
+public override void OnKill()
+{
+    ApathyWorld.downedEmpathy = true;
+    DespawnCleanup();
+}
         public override void AI()
         {
           if (Main.netMode != NetmodeID.Server)
@@ -397,21 +398,34 @@ private void CheckPlayersAlive()
 
     if (!anyAlive)
     {
-        NPC.active = false; 
-        NPC.netUpdate = true; 
-        _attack50Triggered = false; 
+        DespawnCleanup();   
+        NPC.active = false;
+        NPC.netUpdate = true;
     }
 }
-
-
-public class EmpathyBossBar : ModBossBar
+public void DespawnCleanup()
 {
-    public override bool PreDraw(SpriteBatch spriteBatch, NPC npc, ref BossBarDrawParams drawParams)
+    
+    Phasee2 = false;
+    _p2?.End();
+    _p2 = null;
 
-    {
-        return true; 
-    }
+    
+    Phase12Active = false;
+    _darkActive = false;
+    _darkTimer = 0;
+    DarkScreenSystem.DarkAlpha = 0f;
+
+    
+    _attack50 = null;
+    _attackFinal = null;
+    _attack14 = null;
+    _attack15 = null;
+    _isInvulnerable = false;
+    _attack50Triggered = false;
 }
+
+
 public override bool CheckActive()
 {
     return false;

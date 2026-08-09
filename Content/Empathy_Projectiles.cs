@@ -3469,162 +3469,173 @@ private void DrawBeam(Texture2D pixel, Vector2 origin, Vector2 dir,
                 SpriteEffects.None, 0f);
         }
     }
-  public class EmpathyAttack50Percent
+ 
+
+
+
+
+
+public class EmpathyAttack50Percent
+{
+    private NPC _npc;
+    private bool _done = false;
+    private int _timer = 0;
+    private const int ATTACK_DURATION = 1200;
+
+    private int _spawnTimer = 0;
+    private const int SPAWN_INTERVAL = 4;
+    private float _angle = 0f;
+    private const int PROJECTILES_PER_RING = 20;
+
+    private Vector2 _arenaCenter;
+    private const float ARENA_HALF_SIZE = 50 * 16f;
+
+    public EmpathyAttack50Percent(NPC npc)
     {
-        private NPC _npc;
-        private bool _done = false;
-        private int _timer = 0;
-        private const int ATTACK_DURATION = 1200; 
+        _npc = npc;
+    }
 
-        private int _spawnTimer = 0;
-        private const int SPAWN_INTERVAL = 4; 
-        private float _angle = 0f;
-        private const int PROJECTILES_PER_RING = 20;
+    public void Init()
+    {
+        Player target = Main.player[_npc.target];
+        _arenaCenter = target.Center;
 
-        private Vector2 _arenaCenter;
-        private const float ARENA_HALF_SIZE = 50 * 16f; 
-
-        public EmpathyAttack50Percent(NPC npc)
+        for (int i = 0; i < Main.maxProjectiles; i++)
         {
-            _npc = npc;
+            if (Main.projectile[i].active && Main.projectile[i].hostile)
+                Main.projectile[i].Kill();
         }
 
-        public void Init()
+        _npc.Center = target.Center - new Vector2(0f, 20 * 16f);
+        _npc.velocity = Vector2.Zero;
+        _npc.netUpdate = true;
+
+        if (Main.netMode != NetmodeID.MultiplayerClient)
         {
-            Player target = Main.player[_npc.target];
-            _arenaCenter = target.Center; 
+            SpawnBarriers();
+        }
+    }
+
+    private void SpawnBarriers()
+    {
+        float offset = ARENA_HALF_SIZE;
+
+        Projectile.NewProjectile(_npc.GetSource_FromAI(), _arenaCenter + new Vector2(-offset, 0), Vector2.Zero,
+            ModContent.ProjectileType<EmpathyBarrier>(), 0, 0f, Main.myPlayer, MathHelper.PiOver2);
+
+        Projectile.NewProjectile(_npc.GetSource_FromAI(), _arenaCenter + new Vector2(offset, 0), Vector2.Zero,
+            ModContent.ProjectileType<EmpathyBarrier>(), 0, 0f, Main.myPlayer, MathHelper.PiOver2);
+
+        Projectile.NewProjectile(_npc.GetSource_FromAI(), _arenaCenter + new Vector2(0, -offset), Vector2.Zero,
+            ModContent.ProjectileType<EmpathyBarrier>(), 0, 0f, Main.myPlayer, 0f);
+
+        Projectile.NewProjectile(_npc.GetSource_FromAI(), _arenaCenter + new Vector2(0, offset), Vector2.Zero,
+            ModContent.ProjectileType<EmpathyBarrier>(), 0, 0f, Main.myPlayer, 0f);
+    }
+
+    public bool Update()
+    {
+        if (_done) return true;
+
+        
+        bool anyAlive = false;
+        foreach (Player pl in Main.player)
+        {
+            if (pl.active && !pl.dead) { anyAlive = true; break; }
+        }
+        if (!anyAlive)
+        {
+            CleanUp();
 
             
-            for (int i = 0; i < Main.maxProjectiles; i++)
+            if (_npc.ModNPC is Empathy empathy)
+                empathy.DespawnCleanup();
+
+            _npc.life = 0;
+            _npc.active = false;
+            if (Main.netMode == NetmodeID.Server)
+                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, _npc.whoAmI);
+            _done = true;
+            return true;
+        }
+
+        _timer++;
+        _npc.velocity = Vector2.Zero;
+        _npc.dontTakeDamage = true;
+
+        if (Main.netMode != NetmodeID.MultiplayerClient)
+        {
+            _spawnTimer++;
+            if (_spawnTimer >= SPAWN_INTERVAL)
             {
-                if (Main.projectile[i].active && Main.projectile[i].hostile)
-                    Main.projectile[i].Kill();
+                _spawnTimer = 0;
+                float step = MathHelper.TwoPi / PROJECTILES_PER_RING;
+                for (int i = 0; i < PROJECTILES_PER_RING; i++)
+                {
+                    Vector2 vel = (_angle + step * i).ToRotationVector2() * 7f;
+                    Projectile.NewProjectile(_npc.GetSource_FromAI(), _npc.Center, vel,
+                        ModContent.ProjectileType<EmpathyParticle3>(), 150, 0f, Main.myPlayer);
+                }
+                _angle += 0.2f;
             }
+        }
 
-            
-            _npc.Center = target.Center - new Vector2(0f, 20 * 16f);
-            _npc.velocity = Vector2.Zero;
+        foreach (Player p in Main.player)
+        {
+            if (!p.active || p.dead) continue;
+
+            float diffX = Math.Abs(p.Center.X - _arenaCenter.X);
+            float diffY = Math.Abs(p.Center.Y - _arenaCenter.Y);
+
+            if (diffX > ARENA_HALF_SIZE || diffY > ARENA_HALF_SIZE)
+            {
+                p.KillMe(Terraria.DataStructures.PlayerDeathReason.ByCustomReason("it's useless to run."), 9999, 0);
+            }
+        }
+
+        if (_timer >= ATTACK_DURATION)
+        {
+            _npc.life = _npc.lifeMax;
+            _npc.dontTakeDamage = false;
             _npc.netUpdate = true;
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            CleanUp();
+
+            if (_npc.ModNPC is Empathy empathyBoss)
             {
-                SpawnBarriers();
+                empathyBoss.Phasee2 = true;
             }
+            _done = true;
+            return true;
         }
 
-       
-private void SpawnBarriers()
-{
-    
-    float offset = ARENA_HALF_SIZE; 
+        return false;
+    }
 
     
-    Projectile.NewProjectile(_npc.GetSource_FromAI(), _arenaCenter + new Vector2(-offset, 0), Vector2.Zero, 
-        ModContent.ProjectileType<EmpathyBarrier>(), 0, 0f, Main.myPlayer, MathHelper.PiOver2);
-
-    
-    Projectile.NewProjectile(_npc.GetSource_FromAI(), _arenaCenter + new Vector2(offset, 0), Vector2.Zero, 
-        ModContent.ProjectileType<EmpathyBarrier>(), 0, 0f, Main.myPlayer, MathHelper.PiOver2);
-
-    
-    Projectile.NewProjectile(_npc.GetSource_FromAI(), _arenaCenter + new Vector2(0, -offset), Vector2.Zero, 
-        ModContent.ProjectileType<EmpathyBarrier>(), 0, 0f, Main.myPlayer, 0f);
-
-    
-    Projectile.NewProjectile(_npc.GetSource_FromAI(), _arenaCenter + new Vector2(0, offset), Vector2.Zero, 
-        ModContent.ProjectileType<EmpathyBarrier>(), 0, 0f, Main.myPlayer, 0f);
+    private void CleanUp()
+    {
+        for (int i = 0; i < Main.maxProjectiles; i++)
+        {
+            Projectile p = Main.projectile[i];
+            if (p.active && (p.type == ModContent.ProjectileType<EmpathyBarrier>() || p.type == ModContent.ProjectileType<EmpathyParticle3>()))
+                p.Kill();
+        }
+    }
 }
 
 
-public bool Update()
-{
-    if (_done) return true;
-
-    _timer++;
-    _npc.velocity = Vector2.Zero;
-    _npc.dontTakeDamage = true;
-
-    
-    if (Main.netMode != NetmodeID.MultiplayerClient)
-    {
-        _spawnTimer++;
-        if (_spawnTimer >= SPAWN_INTERVAL)
-        {
-            _spawnTimer = 0;
-            float step = MathHelper.TwoPi / PROJECTILES_PER_RING;
-            for (int i = 0; i < PROJECTILES_PER_RING; i++)
-            {
-                Vector2 vel = (_angle + step * i).ToRotationVector2() * 7f;
-                Projectile.NewProjectile(_npc.GetSource_FromAI(), _npc.Center, vel, 
-                    ModContent.ProjectileType<EmpathyParticle3>(), 150, 0f, Main.myPlayer);
-            }
-            _angle += 0.2f;
-        }
-    }
-
-    
-    foreach (Player p in Main.player)
-    {
-        
-        if (!p.active || p.dead) continue;
-
-        float diffX = Math.Abs(p.Center.X - _arenaCenter.X);
-        float diffY = Math.Abs(p.Center.Y - _arenaCenter.Y);
-
-        
-        if (diffX > ARENA_HALF_SIZE || diffY > ARENA_HALF_SIZE)
-        {
-            p.KillMe(Terraria.DataStructures.PlayerDeathReason.ByCustomReason("it's useless to run."), 9999, 0);
-        }
-    }
-
-    if (_timer >= ATTACK_DURATION)
-    {
-        _npc.life = _npc.lifeMax;
-        _npc.dontTakeDamage = false;
-        _npc.netUpdate = true;
-
-        for (int i = 0; i < Main.maxProjectiles; i++)
-        {
-            Projectile p = Main.projectile[i];
-            if (p.active && p.type == ModContent.ProjectileType<EmpathyBarrier>())
-            {
-                p.Kill();
-            }
-        }
-
-        for (int i = 0; i < Main.maxProjectiles; i++)
-        {
-            Projectile p = Main.projectile[i];
-            if (p.active && p.type == ModContent.ProjectileType<EmpathyParticle3>())
-            {
-                p.Kill();
-            }
-        }
-        if (_npc.ModNPC is Empathy empathyBoss)
-        {
-            empathyBoss.Phasee2 = true;
-        }
-        _done = true;
-        return true; 
-    }
-
-    
-    return false; 
-
-    }
-    }
  public class EmpathyAttackFinal
 {
     private NPC _npc;
     private bool _done = false;
     private int _timer = 0;
-    private const int ATTACK_DURATION = 1800;      
+    private const int ATTACK_DURATION = 1800;
     private const int DEATH_TIMER = 120;
     private Vector2 _arenaCenter;
     private const float ARENA_HALF_SIZE = 50 * 16f;
     private float _rotateAngle = 0f;
-    private float _rotateDir = 1f;                 
+    private float _rotateDir = 1f;
 
     public EmpathyAttackFinal(NPC npc) => _npc = npc;
 
@@ -3642,7 +3653,7 @@ public bool Update()
     {
         float offset = ARENA_HALF_SIZE;
         Vector2[] pos = { _arenaCenter + new Vector2(-offset, 0), _arenaCenter + new Vector2(offset, 0),
-                          _arenaCenter + new Vector2(0, -offset), _arenaCenter + new Vector2(0, offset) };
+            _arenaCenter + new Vector2(0, -offset), _arenaCenter + new Vector2(0, offset) };
         float[] rots = { MathHelper.PiOver2, MathHelper.PiOver2, 0f, 0f };
         for (int i = 0; i < 4; i++)
             Projectile.NewProjectile(_npc.GetSource_FromAI(), pos[i], Vector2.Zero,
@@ -3653,7 +3664,6 @@ public bool Update()
     {
         if (_done) return true;
 
-        
         bool anyAlive = false;
         foreach (Player pl in Main.player)
         {
@@ -3662,8 +3672,13 @@ public bool Update()
         if (!anyAlive)
         {
             CleanUp();
+
+            
+            if (_npc.ModNPC is Empathy empathy)
+                empathy.DespawnCleanup();
+
             _npc.life = 0;
-            _npc.active = false;   
+            _npc.active = false;
             if (Main.netMode == NetmodeID.Server)
                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, _npc.whoAmI);
             _done = true;
@@ -3679,29 +3694,24 @@ public bool Update()
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                
                 bool enraged = _timer >= ATTACK_DURATION / 2;
                 int ringInterval = enraged ? 60 : 90;
                 int randInterval = enraged ? 14 : 20;
                 int randCount = enraged ? 3 : 2;
 
-                
                 if (_timer % ringInterval == 0)
                     for (int i = 0; i < 6; i++)
                         SpawnLaser(_rotateAngle + (MathHelper.TwoPi / 6f * i));
 
-                
                 if (_timer % 240 == 0 && Main.rand.NextBool())
                     _rotateDir *= -1f;
                 _rotateAngle += _rotateDir * (0.02f + 0.025f * (float)Math.Sin(_timer * 0.03f));
 
-                
                 if (_timer % randInterval == 0)
                     for (int i = 0; i < randCount; i++)
                         SpawnLaserAt(_arenaCenter + new Vector2(Main.rand.NextFloat(-800, 800), Main.rand.NextFloat(-800, 800)),
                             Main.rand.NextFloat(MathHelper.TwoPi));
 
-                
                 if (_timer % 300 == 0)
                 {
                     Vector2 burstPos = _arenaCenter + new Vector2(Main.rand.NextFloat(-600, 600), Main.rand.NextFloat(-600, 600));
@@ -3776,5 +3786,3 @@ public bool Update()
         }
     }
 }
-
-
