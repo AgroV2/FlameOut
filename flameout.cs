@@ -1,11 +1,27 @@
 using Terraria.ModLoader;
 using System.Collections.Generic;
 using System;
+using System.IO;
 using flameout.Content;
 namespace flameout
 {
     public class flameout : Mod
     {
+        public override void HandlePacket(BinaryReader reader, int whoAmI)
+        {
+            byte message = reader.ReadByte();
+            switch (message)
+            {
+                case BurnoutSystem.MessageToggleBurnout:
+                    if (Terraria.Main.netMode == Terraria.ID.NetmodeID.Server && !BurnoutSystem.AnyBossAlive())
+                        BurnoutSystem.SetActive(!BurnoutSystem.Active);
+                    break;
+
+                default:
+                    throw new ArgumentException($"Unknown flameout packet message '{message}'.");
+            }
+        }
+
         public override object Call(params object[] args)
         {
             if (args == null || args.Length == 0 || args[0] is not string message)
@@ -87,6 +103,22 @@ namespace flameout
 
                 }
             );
+                            bossChecklist.Call(
+                    "LogBoss",
+                    Mod,
+                    "ApatheticSpirit",
+                    9.6f,
+                    new Func<bool>(() => ApathyWorld.downedApatheticSpirit),
+                    ModContent.NPCType<ApatheticSpirit>(),
+                    new Dictionary<string, object>() {
+                        ["spawnItems"] = ModContent.ItemType<ApatheticKey>(),
+                        ["displayName"] = "Apathetic Spirit",
+                        ["spawnInfo"] = new Func<Terraria.Localization.LocalizedText>(() =>
+                            Terraria.Localization.Language.GetOrRegister(
+                                "Mods.flameout.BossChecklist.ApatheticSpiritSpawn",
+                                () => "Use an apathetic key to summon."))
+                    }
+                );
               
             }
         

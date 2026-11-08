@@ -1,3 +1,17 @@
+BurnoutMenu: {
+	OnHover:
+		'''
+		Burnout: ON
+		Click to disable
+		'''
+	OffHover:
+		'''
+		Burnout: OFF
+		Click to enable
+		'''
+	LockedHover: Cannot switch Burnout while a boss is alive
+}
+
 Projectiles: {
 	ApathyStaticBeam.DisplayName: Apathy Static Beam
 	ApathySpinLaser.DisplayName: Apathy Spin Laser
@@ -43,6 +57,51 @@ Projectiles: {
 	ApathyArena.DisplayName: Apathy Arena
 	ApathyTrackingLaser.DisplayName: Apathy Tracking Laser
 	ApatheticMirrorTransition.DisplayName: Apathetic Mirror Transition
+	ApatheticBolt.DisplayName: Apathetic Bolt
+	ApatheticExplosion.DisplayName: Apathetic Explosion
+	ApatheticRapierDash.DisplayName: Apathetic Rapier Dash
+	ApatheticRapierSlash.DisplayName: Apathetic Rapier Slash
+	ApatheticLaserProjectile.DisplayName: Apathetic Laser Projectile
+	ApatheticCell.DisplayName: Apathetic Cell
+	ApatheticSpiritRapierDashProjectile.DisplayName: Apathetic Spirit Rapier Dash Projectile
+	ApatheticSpiritRapierSlashProjectile.DisplayName: Apathetic Spirit Rapier Slash Projectile
+	ApatheticSpiritStaff.DisplayName: Apathetic Spirit Staff
+	ApatheticSpiritParticle.DisplayName: Apathetic Spirit Particle
+	ApatheticSpiritBow.DisplayName: Apathetic Spirit Bow
+	ApatheticSpiritArrow.DisplayName: Apathetic Spirit Arrow
+	ApatheticSpiritCellLaser.DisplayName: Apathetic Spirit Cell Laser
+	ApatheticSpiritCellBurst.DisplayName: Apathetic Spirit Cell Burst
+	ApatheticSpiritCell.DisplayName: Apathetic Spirit Cell
+	ApatheticSpiritRapierFinal.DisplayName: Apathetic Spirit Rapier Final
+	ApatheticSpiritProjectile.DisplayName: Apathetic Spirit Projectile
+	ApatheticSpiritFinalBeam.DisplayName: Apathetic Spirit Final Beam
+	ApatheticArrowProjectile.DisplayName: Apathetic Arrow Projectile
+	ApatheticArchLaser.DisplayName: Apathetic Arch Laser
+	ApatheticArchBolt.DisplayName: Apathetic Arch Bolt
+	ApatheticSpiritSummon.DisplayName: Apathetic Spirit Summon
+	CandleFlame.DisplayName: Candle Flame
+	CandleFreezeShot.DisplayName: Candle Freeze Shot
+	CandleGaugeLaser.DisplayName: Candle Gauge Laser
+	CandleOrbit.DisplayName: Candle Orbit
+	CandleSeeker.DisplayName: Candle Seeker
+	CandleTotemAnchor.DisplayName: Candle Totem Anchor
+}
+
+Buffs: {
+	ApatheticCurse: {
+		DisplayName: Apathetic Curse
+		Description: Defense is reduced by 2%
+	}
+
+	ApatheticCellBuff: {
+		Description: Mods.flameout.Buffs.ApatheticCellBuff.Description
+		DisplayName: Apathetic Cell Buff
+	}
+
+	CandleGaugeWeakness: {
+		DisplayName: Candle Gauge Weakness
+		Description: Mods.flameout.Buffs.CandleGaugeWeakness.Description
+	}
 }
 
 NPCs: {
@@ -52,9 +111,16 @@ NPCs: {
 	Guardian1.DisplayName: Guardian
 	PlayerMirror.DisplayName: yourself
 	TrueEmpathy.DisplayName: True Empathy
+	ApatheticSpirit.DisplayName: Apathetic Spirit
+	HorrorAngel.DisplayName: Horror Angel
 }
 
 Items: {
+	ApatheticStaff: {
+		DisplayName: Apathetic Staff
+		Tooltip: Fires three apathetic bolts that explode and inflict Apathetic Curse
+	}
+
 	ApatheticMirror: {
 		DisplayName: Apathetic Mirror
 		Tooltip: Enter or leave a horizontally mirrored world
@@ -244,6 +310,92 @@ Items: {
 		DisplayName: Will
 		Tooltip: Your own will instantly heals your wounds
 	}
+
+	TapeC: {
+		Tooltip: ""
+		DisplayName: Tape C
+	}
+
+	ApatheticRapiers: {
+		DisplayName: Apathetic Rapiers
+		Tooltip: The weapon of a duelist consumed by Apathy
+	}
+
+	ApatheticCellStaff: {
+		Tooltip: Spawns Apathetic Cell that fights for you
+		DisplayName: Apathetic Cell Staff
+	}
+
+	ApatheticBow: {
+		Tooltip: The bow bereft of emotion
+		DisplayName: Apathetic Bow
+	}
+
+	ApatheticArrow: {
+		Tooltip: Apathetic curse makes this arrow incredibly fast
+		DisplayName: Apathetic Arrow
+	}
+
+	ApatheticArchStaff: {
+		Tooltip: Press M2 to fire a big laser
+		DisplayName: Apathetic Arch Staff
+	}
+
+	TreasureBagApatheticSpirit: {
+		Tooltip: ""
+		DisplayName: Treasure Bag (Apathetic Spirit)
+	}
+
+	ApatheticShards: {
+		Tooltip: Everything that remained after [REDACTED]
+		DisplayName: Apathetic Shards
+	}
+
+	ApatheticRelic: {
+		Tooltip: A reward for conquering a different perspective on the world
+		DisplayName: Apathetic Relic
+	}
+
+	ApatheticKey: {
+		Tooltip: ""
+		DisplayName: Apathetic Key
+	}
+
+	EternalCandle: {
+		DisplayName: Eternal Candle
+		Tooltip: ""
+	}
+}
+
+Candle: {
+	Tooltip: {
+		Current: Current mode: {0} / {1}
+		Available: Available modes: {0}
+		None: None
+	}
+
+	Modes: {
+		Totem: Totem
+		Accessory: Accessory
+		Weapon: Weapon
+	}
+
+	Forms: {
+		None: None
+		TotemDamage: Damage Totem
+		TotemProjectile: Projectile Totem
+		TotemPurge: Purging Totem
+		TotemFlame: Flame Totem
+		AccessoryBurn: Burning Accessory
+		AccessoryCleanse: Cleansing Accessory
+		AccessoryDelay: Delaying Accessory
+		AccessoryRage: Rage Accessory
+		WeaponSeeker: Seeker Weapon
+		WeaponOrbit: Orbit Weapon
+		WeaponGauge: Gauge Weapon
+		WeaponFreeze: Freezing Weapon
+		WeaponFlame: Flame Weapon
+	}
 }
 
 Configs: {
@@ -255,4 +407,9 @@ Configs: {
 
 		DisplayName: Flameout Client Config
 	}
+}
+
+Keybinds: {
+	"Change Candle Universal Effect.DisplayName": Change  Candle  Universal  Effect
+	"Change Candle Form.DisplayName": Change  Candle  Form
 }

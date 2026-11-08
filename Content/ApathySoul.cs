@@ -35,9 +35,9 @@ namespace flameout.Content
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(Mod, "ApathySoulLore", "Сама по себе — лишь холодная пустота"));
-            tooltips.Add(new TooltipLine(Mod, "ApathySoulEmpathy", "Против Эмпатии: защита x10, урон x2"));
-            tooltips.Add(new TooltipLine(Mod, "ApathySoulGuardians", "Против её стражей: урон x3"));
+            tooltips.Add(new TooltipLine(Mod, "ApathySoulLore", "Born from nothing,"));
+            tooltips.Add(new TooltipLine(Mod, "ApathySoulEmpathy", "Made for nothing,"));
+            tooltips.Add(new TooltipLine(Mod, "ApathySoulGuardians", "The great Empathy destroyer."));
 
             float time = Main.GlobalTimeWrappedHourly;
             int count = tooltips.Count;
@@ -94,7 +94,7 @@ namespace flameout.Content
                 return;
 
             if (target.type == ModContent.NPCType<Empathy>() || target.type == ModContent.NPCType<TrueEmpathy>())
-                modifiers.FinalDamage *= 2f;
+                modifiers.FinalDamage *= 1.2f;
             else if (target.type == ModContent.NPCType<Guardian1>() || target.type == ModContent.NPCType<Guardian2>())
                 modifiers.FinalDamage *= 3f;
         }

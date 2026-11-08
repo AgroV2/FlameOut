@@ -34,7 +34,7 @@ namespace flameout.Content
 
         private const int BEAM_COUNT = 4;
         private const int PARTICLE_INTERVAL = 4;
-        private const int PARTICLE_COUNT = 12;
+        private const int PARTICLE_COUNT = 6;
         private const float PARTICLE_SPEED_MIN = 5f;
         private const float PARTICLE_SPEED_MAX = 11f;
 

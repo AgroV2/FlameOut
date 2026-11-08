@@ -113,15 +113,18 @@ namespace flameout.Content
             if (_builtInsRegistered)
                 return;
 
-            HorrorEvent[] builtIns = {
-                new SmallEvent1(), new SmallEvent2(), new SmallEvent3(), new SmallEvent4(), new SmallEvent5(),
-                new SmallEvent6(), new SmallEvent7(), new SmallEvent8(), new SmallEvent9(), new SmallEvent10(),
-                new SmallEvent11(), new SmallEvent12(), new SmallEvent13(), new SmallEvent14(), new SmallEvent15(),
-                new MediumEvent1(), new MediumEvent2(), new MediumEvent3(), new MediumEvent4(), new MediumEvent5(),
-                new MediumEvent6(), new MediumEvent7(), new MediumEvent8(), new MediumEvent9(), new MediumEvent10(),
-                new GlobalEvent1(), new GlobalEvent2(), new GlobalEvent3(), new GlobalEvent4(), new GlobalEvent5(),
-                new GlobalEvent6(), new GlobalEvent7(), new GlobalEvent8()
-            };
+          HorrorEvent[] builtIns = {
+    new SmallEvent1(), new SmallEvent2(), new SmallEvent3(), new SmallEvent4(), new SmallEvent5(),
+    new SmallEvent6(), new SmallEvent7(), new SmallEvent8(), new SmallEvent9(), new SmallEvent10(),
+    new SmallEvent11(), new SmallEvent12(), new SmallEvent13(), new SmallEvent14(), new SmallEvent15(),
+    new SmallEvent16(), new SmallEvent17(), new SmallEvent18(), new SmallEvent19(), new SmallEvent20(),
+    new MediumEvent1(), new MediumEvent2(), new MediumEvent3(), new MediumEvent4(), new MediumEvent5(),
+    new MediumEvent6(), new MediumEvent7(), new MediumEvent8(), new MediumEvent9(), new MediumEvent10(),
+    new MediumEvent11(), new MediumEvent12(), new MediumEvent13(), new MediumEvent14(), new MediumEvent15(),
+    new GlobalEvent1(), new GlobalEvent2(), new GlobalEvent3(), new GlobalEvent4(), new GlobalEvent5(),
+    new GlobalEvent6(), new GlobalEvent7(), new GlobalEvent8(),
+    new GlobalEvent9(), new GlobalEvent10(), new GlobalEvent11()
+};
 
             foreach (HorrorEvent horrorEvent in builtIns)
                 RegisterEvent(horrorEvent);

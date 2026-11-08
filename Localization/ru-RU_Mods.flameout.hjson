@@ -1,0 +1,415 @@
+BurnoutMenu: {
+	OnHover:
+		'''
+		Burnout: ВКЛ
+		Нажмите, чтобы выключить
+		'''
+	OffHover:
+		'''
+		Burnout: ВЫКЛ
+		Нажмите, чтобы включить
+		'''
+	LockedHover: Нельзя переключать Burnout, пока жив босс
+}
+
+Projectiles: {
+	// ApathyStaticBeam.DisplayName: Apathy Static Beam
+	// ApathySpinLaser.DisplayName: Apathy Spin Laser
+	// ApathyParticle.DisplayName: Apathy Particle
+	// ApathyBigLaser.DisplayName: Apathy Big Laser
+	// ApathyDeathEffect.DisplayName: Apathy Death Effect
+	// EmpathyLaser.DisplayName: Empathy Laser
+	// EmpathyPentagram.DisplayName: Empathy Pentagram
+	// EmpathyPentagramLaser.DisplayName: Empathy Pentagram Laser
+	// EmpathySword.DisplayName: Empathy Sword
+	// Empathy_Projectiles.DisplayName: Empathy Projectile
+	// EmpathyStar.DisplayName: Empathy Star
+	// EmpathyScythe.DisplayName: Empathy Scythe
+	// EmpathyScytheShot.DisplayName: Empathy Scythe Shot
+	// EmpathyParticle2.DisplayName: Empathy Particle
+	// EmpathyParticle3.DisplayName: Empathy Particle
+	// EmpathyPortal1.DisplayName: Empathy Portal
+	// EmpathyPortal2.DisplayName: Empathy Portal
+	// EmpathyPortal.DisplayName: Empathy Portal
+	// GuardianBullet.DisplayName: Guardian Bullet
+	// GuardianArrow.DisplayName: Guardian Arrow
+	// EmpathyLaser2.DisplayName: Empathy Laser
+	// EmpathySquare.DisplayName: Empathy Square
+	// EmpathyDirLaser.DisplayName: Empathy Dir Laser
+	// EmpathyOrb.DisplayName: Empathy Orb
+	// EmpathyCross.DisplayName: Empathy Cross
+	// EmpathyScytheP13.DisplayName: Empathy Scythe
+	// EmpathySword2.DisplayName: Empathy Sword
+	// EmpathyLaser3.DisplayName: Empathy Laser
+	// EmpathyPortal3.DisplayName: Empathy Portal
+	// EmpathyScreenFlash.DisplayName: Empathy Screen Flash
+	// EmpathyBarrier.DisplayName: Empathy Barrier
+	// HorrorGhostProj.DisplayName: Horror Ghost Proj
+	// EmpathyPulseCircle.DisplayName: Empathy Pulse Circle
+	// EmpathySwordHeld.DisplayName: Empathy Sword Held
+	// EmpathySoulExplosion.DisplayName: Empathy Soul Explosion
+	// GuardianBowHeld.DisplayName: Guardian Bow Held
+	// EmpathyStaffHeld.DisplayName: Empathy Staff Held
+	// EmpathyWhipProj.DisplayName: Empathy Whip Proj
+	// ApathyPortal.DisplayName: Apathy Portal
+	// HisKeyRitual.DisplayName: His Key Ritual
+	// ZerothFractalHeld.DisplayName: Zeroth Fractal Held
+	// ApathyArena.DisplayName: Apathy Arena
+	// ApathyTrackingLaser.DisplayName: Apathy Tracking Laser
+	// ApatheticMirrorTransition.DisplayName: Apathetic Mirror Transition
+	// ApatheticBolt.DisplayName: Apathetic Bolt
+	// ApatheticExplosion.DisplayName: Apathetic Explosion
+	// ApatheticRapierDash.DisplayName: Apathetic Rapier Dash
+	// ApatheticRapierSlash.DisplayName: Apathetic Rapier Slash
+	// ApatheticLaserProjectile.DisplayName: Apathetic Laser Projectile
+	// ApatheticCell.DisplayName: Apathetic Cell
+	// ApatheticSpiritRapierDashProjectile.DisplayName: Apathetic Spirit Rapier Dash Projectile
+	// ApatheticSpiritRapierSlashProjectile.DisplayName: Apathetic Spirit Rapier Slash Projectile
+	// ApatheticSpiritStaff.DisplayName: Apathetic Spirit Staff
+	// ApatheticSpiritParticle.DisplayName: Apathetic Spirit Particle
+	// ApatheticSpiritBow.DisplayName: Apathetic Spirit Bow
+	// ApatheticSpiritArrow.DisplayName: Apathetic Spirit Arrow
+	// ApatheticSpiritCellLaser.DisplayName: Apathetic Spirit Cell Laser
+	// ApatheticSpiritCellBurst.DisplayName: Apathetic Spirit Cell Burst
+	// ApatheticSpiritCell.DisplayName: Apathetic Spirit Cell
+	// ApatheticSpiritRapierFinal.DisplayName: Apathetic Spirit Rapier Final
+	// ApatheticSpiritProjectile.DisplayName: Apathetic Spirit Projectile
+	// ApatheticSpiritFinalBeam.DisplayName: Apathetic Spirit Final Beam
+	// ApatheticArrowProjectile.DisplayName: Apathetic Arrow Projectile
+	// ApatheticArchLaser.DisplayName: Apathetic Arch Laser
+	// ApatheticArchBolt.DisplayName: Apathetic Arch Bolt
+	// ApatheticSpiritSummon.DisplayName: Apathetic Spirit Summon
+	// CandleFlame.DisplayName: Candle Flame
+	// CandleFreezeShot.DisplayName: Candle Freeze Shot
+	// CandleGaugeLaser.DisplayName: Candle Gauge Laser
+	// CandleOrbit.DisplayName: Candle Orbit
+	// CandleSeeker.DisplayName: Candle Seeker
+	// CandleTotemAnchor.DisplayName: Candle Totem Anchor
+}
+
+Buffs: {
+	ApatheticCurse: {
+		// DisplayName: Apathetic Curse
+		// Description: Defense is reduced by 2%
+	}
+
+	ApatheticCellBuff: {
+		// Description: Mods.flameout.Buffs.ApatheticCellBuff.Description
+		// DisplayName: Apathetic Cell Buff
+	}
+
+	CandleGaugeWeakness: {
+		// DisplayName: Candle Gauge Weakness
+		// Description: Mods.flameout.Buffs.CandleGaugeWeakness.Description
+	}
+}
+
+NPCs: {
+	// ApathyBoss.DisplayName: Apathy
+	// Empathy.DisplayName: Empathy
+	// Guardian2.DisplayName: Guardian
+	// Guardian1.DisplayName: Guardian
+	// PlayerMirror.DisplayName: yourself
+	// TrueEmpathy.DisplayName: True Empathy
+	// ApatheticSpirit.DisplayName: Apathetic Spirit
+	// HorrorAngel.DisplayName: Horror Angel
+}
+
+Items: {
+	ApatheticStaff: {
+		// DisplayName: Apathetic Staff
+		// Tooltip: Fires three apathetic bolts that explode and inflict Apathetic Curse
+	}
+
+	ApatheticMirror: {
+		// DisplayName: Apathetic Mirror
+		// Tooltip: Enter or leave a horizontally mirrored world
+	}
+
+	ApatheticEssence: {
+		// DisplayName: Apathetic Essence
+		// Tooltip: A fragment drained of feeling
+	}
+
+	KeyOfNowhere: {
+		// Tooltip: you shouldn't have seen this
+		// DisplayName: Key Of Nowhere
+	}
+
+	EmpathySoul: {
+		// Tooltip: ""
+		// DisplayName: Empathy Soul
+	}
+
+	SoulOfStability: {
+		// Tooltip: ""
+		// DisplayName: Soul Of Stability
+	}
+
+	KeyOfEverywhere: {
+		// Tooltip: ""
+		// DisplayName: Key Of Everywhere
+	}
+
+	ApathySoul: {
+		// Tooltip: ""
+		// DisplayName: Apathy Soul
+	}
+
+	Tape6: {
+		// Tooltip: ""
+		// DisplayName: Tape #6
+	}
+
+	Tape5: {
+		// Tooltip: ""
+		// DisplayName: Tape #5
+	}
+
+	Tape4: {
+		// Tooltip: ""
+		// DisplayName: Tape #4
+	}
+
+	Tape3: {
+		// Tooltip: ""
+		// DisplayName: Tape #3
+	}
+
+	Tape2: {
+		// Tooltip: ""
+		// DisplayName: Tape #2
+	}
+
+	Tape10: {
+		// Tooltip: ""
+		// DisplayName: Tape #10
+	}
+
+	Tape1: {
+		// Tooltip: ""
+		// DisplayName: Tape #1
+	}
+
+	Tape7: {
+		// DisplayName: Tape #7
+		// Tooltip: ""
+	}
+
+	Tape8: {
+		// DisplayName: Tape #8
+		// Tooltip: ""
+	}
+
+	Tape9: {
+		// DisplayName: Tape #9
+		// Tooltip: ""
+	}
+
+	TapeF: {
+		// DisplayName: Tape F
+		// Tooltip: ""
+	}
+
+	Videoplayer: {
+		// DisplayName: Videoplayer
+		// Tooltip: ""
+	}
+
+	PieceOfDarkness6: {
+		// DisplayName: Piece Of Darkness #6
+		// Tooltip: ""
+	}
+
+	PieceOfDarkness5: {
+		// Tooltip: ""
+		// DisplayName: Piece Of Darkness #5
+	}
+
+	PieceOfDarkness4: {
+		// Tooltip: ""
+		// DisplayName: Piece Of Darkness #4
+	}
+
+	PieceOfDarkness3: {
+		// Tooltip: ""
+		// DisplayName: Piece Of Darkness #3
+	}
+
+	PieceOfDarkness2: {
+		// Tooltip: ""
+		// DisplayName: Piece Of Darkness #2
+	}
+
+	PieceOfDarkness10: {
+		// Tooltip: ""
+		// DisplayName: Piece Of Darkness #10
+	}
+
+	PieceOfDarkness1: {
+		// Tooltip: ""
+		// DisplayName: Piece Of Darkness #1
+	}
+
+	PieceOfDarkness7: {
+		// DisplayName: Piece Of Darkness #7
+		// Tooltip: ""
+	}
+
+	PieceOfDarkness8: {
+		// DisplayName: Piece Of Darkness #8
+		// Tooltip: ""
+	}
+
+	PieceOfDarkness9: {
+		// DisplayName: Piece Of Darkness #9
+		// Tooltip: ""
+	}
+
+	PieceOfDarknessC: {
+		// DisplayName: Piece Of Darkness C
+		// Tooltip: ""
+	}
+
+	PieceOfDarknessF: {
+		// DisplayName: Piece Of Darkness F
+		// Tooltip: ""
+	}
+
+	HisKey: {
+		// Tooltip: ""
+		// DisplayName: His Key
+	}
+
+	Empathium: {
+		// Tooltip: ""
+		// DisplayName: Empathium
+	}
+
+	ZerothFractal: {
+		// DisplayName: Zeroth Fractal
+		// Tooltip: ""
+	}
+
+	Faith: {
+		// DisplayName: Faith
+		// Tooltip: Your own faith makes you incredibly fast
+	}
+
+	Strength: {
+		// DisplayName: Strength
+		// Tooltip: Your own strength is concentrated to the maximum
+	}
+
+	Tape0: {
+		// DisplayName: Tape #0
+		// Tooltip: ""
+	}
+
+	Will: {
+		// DisplayName: Will
+		// Tooltip: Your own will instantly heals your wounds
+	}
+
+	TapeC: {
+		// Tooltip: ""
+		// DisplayName: Tape C
+	}
+
+	ApatheticRapiers: {
+		// DisplayName: Apathetic Rapiers
+		// Tooltip: The weapon of a duelist consumed by Apathy
+	}
+
+	ApatheticCellStaff: {
+		// Tooltip: Spawns Apathetic Cell that fights for you
+		// DisplayName: Apathetic Cell Staff
+	}
+
+	ApatheticBow: {
+		// Tooltip: The bow bereft of emotion
+		// DisplayName: Apathetic Bow
+	}
+
+	ApatheticArrow: {
+		// Tooltip: Apathetic curse makes this arrow incredibly fast
+		// DisplayName: Apathetic Arrow
+	}
+
+	ApatheticArchStaff: {
+		// Tooltip: Press M2 to fire a big laser
+		// DisplayName: Apathetic Arch Staff
+	}
+
+	TreasureBagApatheticSpirit: {
+		// Tooltip: ""
+		// DisplayName: Treasure Bag (Apathetic Spirit)
+	}
+
+	ApatheticShards: {
+		// Tooltip: Everything that remained after [REDACTED]
+		// DisplayName: Apathetic Shards
+	}
+
+	ApatheticRelic: {
+		// Tooltip: A reward for conquering a different perspective on the world
+		// DisplayName: Apathetic Relic
+	}
+
+	ApatheticKey: {
+		// Tooltip: ""
+		// DisplayName: Apathetic Key
+	}
+
+	EternalCandle: {
+		DisplayName: Вечная свеча
+		Tooltip: ""
+	}
+}
+
+Candle: {
+	Tooltip: {
+		Current: Текущий режим: {0} / {1}
+		Available: Доступные режимы: {0}
+		None: Нет
+	}
+
+	Modes: {
+		Totem: Тотем
+		Accessory: Аксессуар
+		Weapon: Оружие
+	}
+
+	Forms: {
+		None: Нет
+		TotemDamage: Тотем урона
+		TotemProjectile: Тотем снарядов
+		TotemPurge: Тотем очищения
+		TotemFlame: Тотем пламени
+		AccessoryBurn: Аксессуар горения
+		AccessoryCleanse: Аксессуар очищения
+		AccessoryDelay: Аксессуар отсрочки
+		AccessoryRage: Аксессуар ярости
+		WeaponSeeker: Самонаводящееся оружие
+		WeaponOrbit: Орбитальное оружие
+		WeaponGauge: Оружие шкалы
+		WeaponFreeze: Замораживающее оружие
+		WeaponFlame: Огненное оружие
+	}
+}
+
+Configs: {
+	FlameoutClientConfig: {
+		DebugMode: {
+			// Tooltip: ""
+			// Label: Debug mode
+		}
+
+		// DisplayName: Flameout Client Config
+	}
+}
+
+Keybinds: {
+	// "Change Candle Universal Effect.DisplayName": Change  Candle  Universal  Effect
+	// "Change Candle Form.DisplayName": Change  Candle  Form
+}

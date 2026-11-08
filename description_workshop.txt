@@ -1,6 +1,7 @@
 WARNING: This mod is a HORROR mod. It contains flashing lights. Do not play this if you are faint-hearted or have epilepsy. It is still in beta, expect bugs or glitches.
 This mod also can modify your settings (only volume) and can close or crash the game. 
-Adds: Horror events, 3 bosses, 26 items. Not recommended for multiplayer.
+Adds: Horror events, 4 bosses, 49 items. Not recommended for multiplayer.
 Inspired by FlameOut from EyeOfDarkness
 Music by mona
+Discord server: [url=https://discord.gg/TBPRUaxC6w]click[/url].
 have fun!

@@ -14,7 +14,7 @@ namespace flameout.Content
     {
         private const float BEAM_LENGTH = 2400f;
         private const float START_SPEED = 0.01f;
-        private const float END_SPEED = 0.15f;
+        private const float END_SPEED = 0.07f;
 
         
         

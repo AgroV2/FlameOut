@@ -88,8 +88,8 @@ namespace flameout.Content
 
         public override int Width => sourceWidth > 0 ? sourceWidth : 4200;
         public override int Height => sourceHeight > 0 ? sourceHeight : 1200;
-        public override bool ShouldSave => false;
-        public override bool NoPlayerSaving => true;
+        public override bool ShouldSave => true;
+        public override bool NoPlayerSaving => false;
 
         internal static void Capture(Player player)
         {
@@ -172,24 +172,26 @@ namespace flameout.Content
     {
         public override bool InstancePerEntity => false;
 
-        internal static bool Allowed(NPC npc) =>
-            NPCID.Sets.Zombies[npc.type] ||
-            NPCID.Sets.DemonEyes[npc.type] ||
-            npc.aiStyle == NPCAIStyleID.Slime;
+      		internal static bool Allowed(NPC npc) =>
+			npc.type == ModContent.NPCType<ApatheticSpirit>() || 
+			NPCID.Sets.Zombies[npc.type] ||
+			NPCID.Sets.DemonEyes[npc.type] ||
+			npc.aiStyle == NPCAIStyleID.Slime;
+		public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
+		{
+			if (!ApatheticMirrorSubworld.Active)
+				return;
 
-        public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
-        {
-            if (!ApatheticMirrorSubworld.Active)
-                return;
+			pool.Clear();
+			pool[NPCID.Zombie] = 1f;
+			pool[NPCID.DemonEye] = 1f;
+			pool[NPCID.BlueSlime] = 1f;
+			pool[NPCID.GreenSlime] = 0.75f;
+			pool[NPCID.RedSlime] = 0.5f;
+			pool[NPCID.PurpleSlime] = 0.5f;
 
-            pool.Clear();
-            pool[NPCID.Zombie] = 1f;
-            pool[NPCID.DemonEye] = 1f;
-            pool[NPCID.BlueSlime] = 1f;
-            pool[NPCID.GreenSlime] = 0.75f;
-            pool[NPCID.RedSlime] = 0.5f;
-            pool[NPCID.PurpleSlime] = 0.5f;
-        }
+		
+		}
 
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
         {
@@ -242,7 +244,11 @@ namespace flameout.Content
     {
         public override SceneEffectPriority Priority => SceneEffectPriority.BossHigh;
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Music/ApathyWorld");
-        public override bool IsSceneEffectActive(Player player) => ApatheticMirrorSubworld.Active;
+     public override bool IsSceneEffectActive(Player player)
+{
+	return ApatheticMirrorSubworld.Active
+		&& !NPC.AnyNPCs(ModContent.NPCType<ApatheticSpirit>());
+}
     }
 
     public class ApatheticMirrorOverlay : ModSystem

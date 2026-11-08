@@ -1,4 +1,4 @@
 displayName = Flame Out
 author = AgroV2
-version = 0.3
+version = 0.4
 modReferences = SubworldLibrary

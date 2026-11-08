@@ -1,5 +1,3 @@
-
-
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -352,14 +350,18 @@ namespace flameout.Content
 
         public override void Draw(SpriteBatch sb, float minDepth, float maxDepth)
         {
-            
-            if (!(maxDepth >= float.MaxValue && minDepth < float.MaxValue))
-                return;
             if (intensity <= 0.001f)
                 return;
 
             Texture2D px = Terraria.GameContent.TextureAssets.MagicPixel.Value;
 
+            
+            
+            
+            
+            
+            
+            
             DrawBackdrop(sb, px);
 
             sb.End();
@@ -576,4 +578,3 @@ namespace flameout.Content
         }
     }
 }
-
